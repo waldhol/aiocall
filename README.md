@@ -2,7 +2,7 @@
 The missing call methods for [python asyncio](http://docs.python.org/3/library/asyncio).
 
 I found that python asyncio is lacking some basic methods to invoke calls:
-```python3
+```python
 call_soon_periodic(interval, callback, *args)
 call_later_periodic(delay, interval, callback, *args)
 ```
@@ -10,7 +10,7 @@ call_later_periodic(delay, interval, callback, *args)
 This lib provides these methods.
 
 Example:
-```python3
+```python
 loop = asyncio.get_event_loop()
 
 def do_something(what):

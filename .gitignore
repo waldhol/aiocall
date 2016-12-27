@@ -1,3 +1,9 @@
-# Python byte compiled and optimized files
+# Compiled python modules.
 __pycache__/
 *.py[cod]
+
+# Setuptools distribution folder.
+/dist/
+
+# Python egg metadata, regenerated from source files by setuptools.
+/*.egg-info

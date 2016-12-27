@@ -16,7 +16,11 @@ def call_soon_periodic(interval, callback, *args, **kwargs):
     called. If you want the callback to be called with some named arguments,
     use a closure or `functools.partial()`.
     """
-    return call_later_periodic(0, interval, callback, *args, **kwargs)
+    async def coro():
+        while True:
+            callback(*args)
+            await asyncio.sleep(interval)
+    return asyncio.Task(coro(), **kwargs)
 
 def call_later_periodic(delay, interval, callback, *args, **kwargs):
     """Arrange for the `callback` to be called after `delay` seconds
@@ -40,21 +44,13 @@ def call_later_periodic(delay, interval, callback, *args, **kwargs):
     return asyncio.Task(coro(), **kwargs)
 
 if __name__ == '__main__':
-    loop = asyncio.get_event_loop()
-
     def do_something(what):
-        print('doing %s...' % what)
+        print('doing', what)
 
-    timer1 = call_soon_periodic(1.0, do_something, 'stuff')
-    timer2 = call_later_periodic(0.5, 1.0, do_something, 'other stuff')
+    timer = call_later_periodic(0.5, 1.0, do_something, 'stuff')
 
-    loop.call_later(2.7, timer1.cancel)
-    loop.call_later(2.8, timer2.cancel)
-
-    loop.call_later(2.9, loop.stop)
-
-    print('starting loop')
+    loop = asyncio.get_event_loop()
+    loop.call_later(2.0, timer.cancel)
+    loop.call_later(3.0, loop.stop)
     loop.run_forever()
-    print('loop done')
-
     loop.close()

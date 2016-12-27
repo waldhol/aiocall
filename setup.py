@@ -7,5 +7,5 @@ setup(name='aiocall',
       author='Holger Waldmann',
       author_email='holger.waldmann@web.de',
       license='Public Domain',
-      packages=['aiohttp'],
+      packages=['aiocall'],
       zip_safe=False)

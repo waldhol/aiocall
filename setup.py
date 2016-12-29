@@ -7,7 +7,7 @@ def readme():
 setup(
     name='aiocall',
     packages=['aiocall'],
-    version='0.1',
+    version='0.2',
     description='The missing call methods for python asyncio',
     long_description=readme(),
     classifiers=[
